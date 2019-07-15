@@ -1,0 +1,166 @@
+# Set aliases
+unalias -a
+alias ,='cd -'
+
+# Always enable colored `grep` output
+alias grep='grep --color=auto '
+
+# Enable aliases to be sudo’ed
+alias sudo='sudo '
+
+# Get week number
+alias week='date +%V'
+
+# Stopwatch
+alias timer='echo "Timer started. Stop with Ctrl-D." && date && time cat && date'
+
+
+# OS X has no `md5sum`, so use `md5` as a fallback
+#command -v md5sum > /dev/null || alias md5sum="md5"
+
+# OS X has no `sha1sum`, so use `shasum` as a fallback
+#command -v sha1sum > /dev/null || alias sha1sum="shasum"
+
+# Intuitive map function
+# For example, to list all directories that contain a certain file:
+# find . -name .gitattributes | map dirname
+alias map="xargs -n1"
+
+
+# List declared aliases, functions
+alias listaliases="alias | sed 's/=.*//'"
+alias listfunctions="declare -f | grep '^[a-z].* ()' | sed 's/{$//'" # show non _prefixed functions
+
+# Personal Aliases
+alias h="history"
+alias histg="history | grep"
+alias mkdir="mkdir -pv"
+alias psg="ps aux | grep -v grep | grep -i -e VSZ -e"
+alias df="df -Tha --total"
+alias duf='du -sk * | sort -n | perl -ne '\''($s,$f)=split(m{\t});for (qw(K M G)) {if($s<1024) {printf("%.1f",$s);print "$_\t$f"; last};$s=$s/1024}'\'
+
+# Detect which `ls` flavor is in use
+if ls --color > /dev/null 2>&1; then # GNU `ls`
+	colorflag="--color=always"
+else # OS X `ls`
+	colorflag="-G"
+fi
+
+# List all files colorized in long format
+# shellcheck disable=SC2139
+alias l="ls -lF ${colorflag}"
+
+# List all files colorized in long format, including dot files
+# shellcheck disable=SC2139
+alias la="ls -laF ${colorflag}"
+alias lsl="ls -lhFA ${colorflag} | less"
+
+# List only directories
+# shellcheck disable=SC2139
+alias lsd="ls -lF ${colorflag} | grep --color=never '^d'"
+
+# Always use color output for `ls`
+# shellcheck disable=SC2139
+alias ls="command ls ${colorflag}"
+alias gls="ls --color=always" #GNU ls
+
+alias lh='ls -l ${colorflag} .??*'
+alias lhd='ls -ld ${colorflag} .??*'
+alias lst='ls -lasrt ${colorflag}'
+
+# Editors
+#alias vi='/usr/local/bin/vim'
+
+# Navigation specific folders
+alias cds='cd /home/cjohnson/Git_Repos/scripts'
+alias cdg='cd /home/cjohnson/Git_Repos'
+alias cdoc='cd /home/cjohnson/Documents'
+alias cdow='cd /home/cjohnson/Downloads'
+alias cdk='cd /home/cjohnson/Desktop'
+
+# Easier navigation: .., ..., ~ and -
+alias ..="cd .."
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias .....="cd ../../../.."
+
+alias trl="find . -print | sed -e 's;[^/]*/;|____;g;s;____|; |;g'"
+alias tree="tree -A"
+alias treed="tree -d"
+alias tree1="tree -d -L 1"
+alias tree2="tree -d -L 2"
+alias tree3="tree -d -L 3"
+
+## Copy dirname
+# alias cpwd='pwd|tr -d "\n"|pbcopy' #MacOS 
+alias cpwd='pwd | xclip -sel clip' #Linux
+
+# rsync
+alias rsync="rsync -vh"
+
+# Subversion Aliases
+alias svs='svn status'
+alias sa='svn add'
+alias sci='svn ci -m'
+alias sco='svn co'
+alias sup='svn up'
+alias scu='svn cleanup'
+alias sli='svn list'
+alias sdel='svn delete'
+alias sdif='svn diff'
+alias slog='svn log'
+alias smv='svn move'
+
+# Git aliases
+alias gss='git stash save --keep-index --include-untracked'
+alias gsd='git stash drop'
+alias gs='git status'
+#alias gc=". /usr/local/bin/gitdate && git commit -v "
+alias git-tree='git log --graph --decorate --pretty=oneline --abbrev-commit' 
+
+
+# Misc
+alias key='ssh-add -l'
+alias getmyip='dig +short myip.opendns.com @resolver1.opendns.com'
+alias top='top -s 5 -o cpu -stats pid,user,command,cpu,rsize,vsize,threads,state'
+
+# Stuff I never really use but cannot delete either because of http://xkcd.com/530/
+#alias stfu="osascript -e 'set volume output muted true'"
+#alias pumpitup="osascript -e 'set volume 7'"
+
+# Kill all the tabs in Chrome to free up memory
+# [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
+alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
+# Lock the screen (when going AFK)
+#alias afk="/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend"
+
+# Reload the shell (i.e. invoke as a login shell)
+alias reload="exec $SHELL -l"
+
+# Networking and IP addresses
+alias ip='colored_ip' # See function.
+alias ipd="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en0"
+alias ips="ifconfig -a | grep -o 'inet6\? \(addr:\)\?\s\?\(\(\([0-9]\+\.\)\{3\}[0-9]\+\)\|[a-fA-F0-9:]\+\)' | awk '{ sub(/inet6? (addr:)? ?/, \"\"); print }'"
+alias speedtest="wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip"
+alias wget="wget -c"
+alias myip="curl http://ipecho.net/plain; echo"
+
+# Flush Directory Service cache
+#alias flush="dscacheutil -flushcache && killall -HUP mDNSResponder"
+
+# NPM/NODE Out of Memory during search fix npm8gb
+#alias npm8gb='node --max-old-space-size=8192 /usr/local/bin/npm'
+
+#Dev Builds
+alias jhbuild="~/.local/bin/jhbuild"
+
+#Git repo alias for dotfiles/
+#alias dots='/usr/local/bin/git --git-dir=/Users/cjohnson/.cfg/ --work-tree=/Users/cjohnson'
+
+# Add an "alert" alias for long running commands.  Use like so:
+#   sleep 10; alert
+alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+
+#EOF
