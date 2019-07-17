@@ -4,6 +4,6 @@
 1) fork this repository
 1) review the code, remove or add lines as needed.
 
-## Thanks to…
+## Inspiration and Special Thanks to…
 
 * [Mathias Bynens](https://mathiasbynens.be/) and his [dotfiles repository](https://github.com/mathiasbynens/dotfiles)
