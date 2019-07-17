@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Sample .aliases
 # Redone by Charles Johnson
 # This file is read for each login shell to set local aliases.

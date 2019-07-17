@@ -9,61 +9,24 @@
 # 20161205
 # 20170523
 # 20190610
+# 20190716
 
 
-#######################
-## Fedora 30 Settings-----
-#######################
-# Imported from Generic .bashrc from Fedora 30
+# Add `~/bin` to the `$PATH`
+export PATH="$HOME/bin:$PATH";
 
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-	. /etc/bashrc
-fi
+# Source External files
+# Load the shell dotfiles, and then some:
+# * ~/.path can be used to extend `$PATH`.
+# * ~/.extra can be used for other settings you don’t want to commit.
+for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+	[ -r "$file" ] && [ -f "$file" ] && source "$file";
+done;
+unset file;
 
-# User specific environment
-if ! [[ "$PATH" =~ "$HOME/.local/bin:$HOME/bin:" ]]
-then
-    PATH="$HOME/.local/bin:$HOME/bin:$PATH"
-fi
-export PATH
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
 
-# Uncomment the following line if you don't like systemctl's auto-paging feature:
-# export SYSTEMD_PAGER=
-
-
-#######################
-## Locale Settings-----
-#######################
-# Set locale
-#export LOCALE=UTF-8
-#export LC_ALL=en_US.UTF-8
-#export LC_ALL=C
-#export LANG=en_US.UTF-8
-#export LANGUAGE=en_US.UTF-8
-#export LC_CTYPE=C
-#export LANG=C
-#export SVN_EDITOR=vim
-#export JAVA_HOME=$(/usr/local/bin/greadlink -f /usr/bin/java | /usr/bin/sed "s:bin/java::")
-#export HOMEBREW_GITHUB_API_TOKEN="9615e1a5436e40ec33372a33af1930cdeb151071"
-
-# Set architecture flags
-#export ARCHFLAGS="-arch x86_64"
-
-# Set REPO directory
-export REPO_DIR="${HOME}/Git_Repos"
-export GIT_SAVE_OFF="false"
-
-# Set HTML Tidy conf location
-#export HTML_TIDY="${HOME}/.tidy/tidy.conf"
-
-# MacOS Bash completion
-#if [ -f $(brew --prefix)/etc/bash_completion ]; then
-#    source $(brew --prefix)/etc/bash_completion
-#fi
-
-# Continuous Integration
-export CI=true
 
 # iTerm integration
 #test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
@@ -89,11 +52,6 @@ export CI=true
 #shopt -s lithist
 
 # Configure history
-export HISTTIMEFORMAT='%F %T '
-export HISTCONTROL=ignoredups
-export HISTFILESIZE=
-export HISTSIZE=
-export HISTIGNORE=?:??
 # append to history, don't overwrite it
 shopt -s histappend
 # attempt to save all lines of a multiple-line command in the same history entry
@@ -131,10 +89,6 @@ PROMPT_COMMAND='history -a'
 # export HISTTIMEFORMAT="%s "
 PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo $$ $USER \
                "$(history 1)" >> ~/.bash_eternal_history'
-
-# Tell ls to be colourful
-export CLICOLOR=1
-export LSCOLORS=Exfxcxdxbxegedabagacad
 
 ########################
 ## PATH Settings-------
@@ -314,41 +268,6 @@ Jobs="\j"
 # To enable tab completion of commands, add the following command to your bash profile:
 # [[ -s "$(brew --prefix dvm)/bash_completion" ]] && source "$(brew --prefix dvm)/bash_completion"
 
-# Source External files
-################################
-## System Aliases---------------
-################################
-if [ -f ~/.aliases ]; then
-    source ~/.aliases
-fi
-
-################################
-## DB Screen Aliases------
-################################
-if [ -f ~/.screens_db ]; then
-    source ~/.screens_db
-fi
-
-################################
-## Shell Functions--------------
-################################
-if [ -f ~/.functions ]; then
-    source ~/.functions
-fi
-
-################################
-## AWS Aliases & Functions------
-################################
-#if [ -f ~/.bashrc_aws ]; then
-#    source ~/.bashrc_aws
-#fi
-
-################################
-## SSH Aliases & Functions------
-################################
-#if [ -f ~/.bashrc_ssh ]; then
-#    source ~/.bashrc_ssh
-#fi
 
 ###############################
 ## Additional ENV exports------
@@ -374,11 +293,9 @@ fi
 ###################################
 ## Bash Completion for Alacritty --
 ###################################
-
-export PATH="$HOME/.cargo/bin:$PATH"
-
-if [ -f ~/.bash_completion_alacritty ]; then
-    source ~/.bash_completion_alacritty
-fi
+#export PATH="$HOME/.cargo/bin:$PATH"
+#if [ -f ~/.bash_completion_alacritty ]; then
+#    source ~/.bash_completion_alacritty
+#fi
 
 # EOF

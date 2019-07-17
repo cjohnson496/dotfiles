@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Sample .functions
 # Redone by Charles Johnson
 # This file is read for each login to set local functions.
