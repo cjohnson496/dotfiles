@@ -1,3 +1,7 @@
+# Sample .inputrc
+# Redone by Charles Johnson
+# This file is read for each login to set local keybindings.
+
 # Make Tab autocomplete regardless of filename case
 set completion-ignore-case on
 

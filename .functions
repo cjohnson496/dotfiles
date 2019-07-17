@@ -1,3 +1,7 @@
+# Sample .functions
+# Redone by Charles Johnson
+# This file is read for each login to set local functions.
+
 # Define handy functions
 
 export DOCKER_REPO_PREFIX=$USER

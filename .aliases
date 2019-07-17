@@ -1,3 +1,7 @@
+# Sample .aliases
+# Redone by Charles Johnson
+# This file is read for each login shell to set local aliases.
+
 # Set aliases
 unalias -a
 alias ,='cd -'
