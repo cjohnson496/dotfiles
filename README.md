@@ -13,7 +13,7 @@ I recommend:
 
 ![badge]()
 ![badge]()
-[![license](https://img.shields.io/github/license/:cjohnson496/:dotfiles.svg)](LICENSE)
+[![license](https://img.shields.io/github/license/:cjohnson496/:dotfiles.svg)](LICENSE.md)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
 
