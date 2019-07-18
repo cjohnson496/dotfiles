@@ -4,32 +4,67 @@
 # Redone by Charles Johnson
 # This file is read for each login to set local functions.
 
-# Define handy functions
+# Define some handy functions
 
-export DOCKER_REPO_PREFIX=$USER
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
-#pandoc(){
-#	local file=${*: -1}
-#	local lfile
-#	lfile=$(readlink -m "$(pwd)/${file}")
-#	local rfile
-#	rfile=$(readlink -m "/$(basename "$file")")
-#	local args=${*:1:${#@}-1}
+# Execute arithmetic operations
 
-#	docker run --rm \
-#		-v "${lfile}:${rfile}" \
-#		-v /tmp:/tmp \
-#		--name pandoc \
-#		${DOCKER_REPO_PREFIX}/pandoc "${args}" "${rfile}"
-#}
+eq() {
+    set -f
+    echo $@ | bc
+    set +f
+}
 
-#function startx() {
-#    if [ -z "$(ps -ef|grep XQuartz|grep -v grep)" ] ; then
-#        open -a XQuartz
-#        socat TCP-LISTEN:6000,reuseaddr,fork UNIX-CLIENT:\"$DISPLAY\" &
-#    fi
-#}
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
+# Create new directories and enter the first one.
+
+mkd() {
+    if [ -n "$*" ]; then
+
+        mkdir -p "$@"
+        #      └─ make parent directories if needed
+
+        cd "$@" \
+            || exit 1
+
+    fi
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# Kill all processes by name
+
+nkill() {
+
+    if [ -z "$1" ]; then
+        echo "Please specify name of a process";
+    else
+        processes_count="$(nlist "$1" | wc -l)"
+
+        ask_for_confirmation "$processes_count processes found. Are you sure you want to kill them?"
+
+        if answer_is_yes; then
+            nlist "$1" | awk '{print $2}' | xargs kill -9
+        fi
+    fi
+
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+# List all processes by name
+
+nlist() {
+    if [ -z "$1" ]; then
+        echo "Please specify name of a process";
+    else
+        ps auxw | grep "$1"
+    fi
+}
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function t10() {
     ps axo rss,comm,pid | awk '{ proc_list[$2]++; proc_list[$2 "," 1] += $1; } \
@@ -38,75 +73,111 @@ function t10() {
     | awk '{$1/=1024;printf "%.0fMB\t",$1}{print $2}'
 }
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 function mcdir() {
   mkdir -p $1 && cd $1
 }
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function b() {
     cd .. && pwd
 }
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 function bb() {
     cd ../.. && pwd
 }
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function rmd() {
 	rm -rf ${1+"$@"}
 }
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 function pd() {
     pushd ${1+"$@"}
 }
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function kick() {
 	test -z ${1} && echo "error: no user specified." && return
 	ps aux | grep "${1}" | awk '{printf $2 " "}' | xargs kill
 }
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 function crlf() {
     cat ${1+"$@"} | tr '\r' '\n'
 }
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function h() {
     history ${1+"$@"}
 }
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 function hd() {
     hexdump -C ${1+"$@"}
 }
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function la() {
     /bin/ls -a ${1+"$@"}
 }
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 function ll() {
     /bin/ls -l ${1+"$@"}
 }
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function recv() {
     netcat -l -p 6060 | tar --extract --verbose --file - --unlink ${1+"$@"}
 }
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 function t() {
     less ${1+"$@"}
 }
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function tz() {
     gunzip < ${1+"$@"} | less
 }
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 function remove() {
     test -e ${1} && find . -type f -name "${1}" -exec rm -f {} \;
 }
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function grepj() {
     find . -name "*.java" -exec grep ${@+"$@"} {} \;
 }
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 function epatch() {
     trap -- 'catch_errors' ERR
     extended-patch -p0 < ${1+"$@"}
 }
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function ediff() {
     for FILE in ${1+"$@"}; do
@@ -115,13 +186,19 @@ function ediff() {
     extended-diff ${1+"$@"} | vi -
 }
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 function catch_errors() {
     echo "script aborted because of errors";
 }
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 function killscreens() {
     screen -ls | grep Detached | cut -d. -f1 | awk '{print $1}' | xargs kill
 }
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function killd() {
     for session in $(screen -ls | grep -v Socket | grep -o '[0-9]\{3,\}')
@@ -129,6 +206,8 @@ function killd() {
         screen -S "${session}" -X quit;
     done
 }
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function parse_yaml() {
    local prefix=$2
@@ -146,6 +225,8 @@ function parse_yaml() {
       }
    }'
 }
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function extract {
  if [ -z "$1" ]; then
@@ -178,6 +259,8 @@ function extract {
 fi
 }
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 ipif() {
     if pcregrep -M "(([1-9]\d{0,2})\.){3}(?2)" <<< "$1"; then
 	curl ipinfo.io/"$1"
@@ -187,6 +270,8 @@ ipif() {
     fi
     echo
 }
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 man() {
 	env \
@@ -200,27 +285,19 @@ man() {
 			man "$@"
 }
 
-#update() {
-#    # Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, rvm, Python, and their installed packages
-#    sudo -H softwareupdate -i -a
-#    brew update
-#    brew upgrade
-#    brew cleanup
-#    npm -g install npm@latest
-#    npm update -g
-#    gem update --system
-#    gem update
-#    pip install --upgrade pip setuptools
-#    pip freeze --local | grep -v '^\-e' | cut -d = -f 1  | xargs pip install -U
-#}
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 function setproxy() {
     export {http,https,ftp}_proxy='http://localhost:1080'
 }
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
 function unsetproxy() {
     unset {http,https,ftp}_proxy
 }
+
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 
 # print the header (the first line of input)
 # and then run the specified command on the body (the rest of the input)
@@ -231,3 +308,5 @@ body() {
     "$@"
 }
 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+#EOF
