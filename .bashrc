@@ -19,7 +19,7 @@ export PATH="$HOME/bin:$PATH";
 # Load the shell dotfiles, and then some:
 # * ~/.path can be used to extend `$PATH`.
 # * ~/.extra can be used for other settings you don’t want to commit.
-for file in ~/.{path,bash_prompt,exports,aliases,functions,extra}; do
+for file in ~/.{path,bash_prompt,bash_options,exports,aliases,functions,extra}; do
 	[ -r "$file" ] && [ -f "$file" ] && source "$file";
 done;
 unset file;
@@ -31,7 +31,7 @@ unset file;
 #########################
 ## History Settings-----
 #########################
-
+# Now distributed throughout other dotfiles.
 ## History http://jesrui.sdf-eu.org/remember-all-your-bash-history-forever.html
 #HISTTIMEFORMAT='%F %T '
 #HISTFILESIZE=-1
@@ -44,12 +44,6 @@ unset file;
 #shopt -s cmdhist
 ## save multi-line commands to the history with embedded newlines
 #shopt -s lithist
-# append to history, don't overwrite it
-shopt -s histappend
-# attempt to save all lines of a multiple-line command in the same history entry
-shopt -s cmdhist
-# save multi-line commands to the history with embedded newlines
-shopt -s lithist
 
 
 ################################
