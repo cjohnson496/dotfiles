@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# Sample .bash_options
+# Redone by Charles Johnson
+# This file is read for each shell to set shell options.
+
 # Set the appropriate umask
 
 umask 022
