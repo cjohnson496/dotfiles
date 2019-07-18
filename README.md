@@ -1,19 +1,10 @@
 # Personal Dot files for my Linux and MacOS installations
 
-I recommend:
-1) fork this repository
-1) review the code, remove or add lines as needed.
-
 ## Inspiration and Special Thanks to…
 
 * [Mathias Bynens](https://mathiasbynens.be/) and his [dotfiles repository](https://github.com/mathiasbynens/dotfiles)
 
-
-![banner]()
-
-![badge]()
-![badge]()
-[![license](https://img.shields.io/github/license/:cjohnson496/:dotfiles.svg)](LICENSE)
+[![license](https://img.shields.io/github/license/:cjohnson496/:dotfiles.svg)](LICENSE.md)
 [![standard-readme compliant](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
 
