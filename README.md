@@ -48,4 +48,4 @@ PRs not accepted at this time.
 
 ## License
 
-[MIT © Charles Johnson.](../LICENSE)
+[MIT © Charles Johnson.](LICENSE.md)
