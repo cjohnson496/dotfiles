@@ -11,7 +11,7 @@
 # Let keychain re-use ssh-agent and/or gpg-agent between logins
 #/usr/bin/keychain $HOME/.ssh/id_rsa #single key
 #eval `keychain --eval --agents ssh private-key private-key private-key`
-while read -r line ; do eval `keychain --eval --agents ssh ${line}`; done < <(find $HOME/.ssh -type f \( ! -name "*.pub" -and ! -name "known*" \) | sed "s|^\./||" | sort)
+while read -r line ; do eval `keychain --eval --quiet -Q --agents ssh ${line}`; done < <(find $HOME/.ssh -type f \( ! -name "*.pub" -and ! -name "known*" \) | sed "s|^\./||" | sort)
 source $HOME/.keychain/$HOSTNAME-sh
 ### End-Keychain ###
 
