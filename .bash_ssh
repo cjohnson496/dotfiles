@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Sample .bash_ssh
+# Redone by Charles Johnson
+# This file is read on login to add keys to ssh-agent/keychain.
+
+# One off, single key init.
+#eval `keychain --eval id_[yourid file]`
+
+### START-Keychain ###
+# Let keychain re-use ssh-agent and/or gpg-agent between logins
+#/usr/bin/keychain $HOME/.ssh/id_rsa #single key
+#eval `keychain --eval --agents ssh private-key private-key private-key`
+while read -r line ; do eval `keychain --eval --agents ssh ${line}`; done < <(find $HOME/.ssh -type f \( ! -name "*.pub" -and ! -name "known*" \) | sed "s|^\./||" | sort)
+source $HOME/.keychain/$HOSTNAME-sh
+### End-Keychain ###
+
+#EOF

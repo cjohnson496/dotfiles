@@ -4,6 +4,9 @@
 
 # ~/.bash_logout
 
+# Clear all SSH Keys when logging out
+/usr/bin/keychain --clear
+
 # when leaving the console clear the screen to increase privacy
 
 if [ "$SHLVL" = 1 ]; then
