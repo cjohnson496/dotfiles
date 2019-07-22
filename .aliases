@@ -82,11 +82,11 @@ alias lst='ls -lasrt ${colorflag}'
 #alias vi='/usr/local/bin/vim'
 
 # Navigation specific folders
-alias cds='cd /home/cjohnson/Git_Repos/scripts'
-alias cdg='cd /home/cjohnson/Git_Repos'
-alias cdoc='cd /home/cjohnson/Documents'
-alias cdow='cd /home/cjohnson/Downloads'
-alias cdk='cd /home/cjohnson/Desktop'
+alias cds='cd $HOME/Git_Repos/scripts'
+alias cdg='cd $HOME/Git_Repos'
+alias cdoc='cd $HOME/Documents'
+alias cdow='cd $HOME/Downloads'
+alias cdk='cd $HOME/Desktop'
 
 # Easier navigation: .., ..., ~ and -
 alias ..="cd .."
