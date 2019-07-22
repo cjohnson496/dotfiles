@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Sample .bash_cloud
+# Redone by Charles Johnson
+# This file is read for each shell to set cloud env/sdk options.
+
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/home/cjohnson/Downloads/google-cloud-sdk/path.bash.inc' ]; then . '/home/cjohnson/Downloads/google-cloud-sdk/path.bash.inc'; fi
+
+# The next line enables shell command completion for gcloud.
+if [ -f '/home/cjohnson/Downloads/google-cloud-sdk/completion.bash.inc' ]; then . '/home/cjohnson/Downloads/google-cloud-sdk/completion.bash.inc'; fi

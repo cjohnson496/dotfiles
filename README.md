@@ -44,7 +44,7 @@ N/A
 
 PRs not accepted at this time.
 
-When we dostart accepting PRs, please ee [the contributing code of conduct](code-of-conduct.md)!
+When we dostart accepting PRs, please see [the contributing code of conduct](code-of-conduct.md)!
 
 ## License
 
