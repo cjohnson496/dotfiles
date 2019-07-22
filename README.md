@@ -42,9 +42,9 @@ N/A
 
 ## Contributing
 
-See [the contributing file](CONTRIBUTING.md)!
-
 PRs not accepted at this time.
+
+When we dostart accepting PRs, please ee [the contributing code of conduct](code-of-conduct.md)!
 
 ## License
 
